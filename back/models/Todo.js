@@ -2,28 +2,24 @@ const mongoose = require("mongoose");
 
 const todoSchema = new mongoose.Schema(
   {
-    author: {
-      type: mongoose.Schema.Types.ObjectId,
-      index: true,
-    },
-    name: {
+    titre: {
       type: String,
-      required: [true, "name is required"],
+      required: [true, "le titre est obligatoire"],
       trim: true,
-      maxlength: [150, "name must be at most 150 characters"],
+      maxlength: [150, "le titre doit contenir au maximum 150 caractères"],
     },
     description: {
       type: String,
       trim: true,
       default: "",
-      maxlength: [2000, "description must be at most 2000 characters"],
+      maxlength: [2000, "la description doit contenir au maximum 2000 caractères"],
     },
-    imageUrl: {
+    urlImage: {
       type: String,
       trim: true,
       default: "",
     },
-    completed: {
+    termine: {
       type: Boolean,
       default: false,
     },
