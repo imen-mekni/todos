@@ -1,21 +1,19 @@
 const Todo = require("../models/Todo");
 
-const ALLOWED_FIELDS = ["author", "name", "description", "imageUrl", "completed"];
+const ALLOWED_FIELDS = ["titre", "description", "urlImage", "termine"];
 
-// keep only whitelisted fields from the request body
 const pickFields = (body = {}) =>
   ALLOWED_FIELDS.reduce((acc, key) => {
     if (body[key] !== undefined) acc[key] = body[key];
     return acc;
   }, {});
 
-// GET /api/todo  (optional filters: ?author=<id>&completed=true|false)
+
 exports.getTodos = async (req, res, next) => {
   try {
     const filter = {};
-    if (req.query.author) filter.author = req.query.author;
-    if (req.query.completed !== undefined)
-      filter.completed = req.query.completed === "true";
+    if (req.query.termine !== undefined)
+      filter.termine = req.query.termine === "true";
 
     const todos = await Todo.find(filter).sort({ createdAt: -1 });
     res.status(200).json(todos);
@@ -24,7 +22,6 @@ exports.getTodos = async (req, res, next) => {
   }
 };
 
-// POST /api/todo
 exports.createTodo = async (req, res, next) => {
   try {
     const todo = await Todo.create(pickFields(req.body));
@@ -34,7 +31,6 @@ exports.createTodo = async (req, res, next) => {
   }
 };
 
-// PUT /api/todo/:id
 exports.updateTodo = async (req, res, next) => {
   try {
     const todo = await Todo.findByIdAndUpdate(req.params.id, pickFields(req.body), {
@@ -48,7 +44,6 @@ exports.updateTodo = async (req, res, next) => {
   }
 };
 
-// PUT /api/todo/:id/toggle
 exports.toggleTodo = async (req, res, next) => {
   try {
     const todo = await Todo.findById(req.params.id);
@@ -61,7 +56,6 @@ exports.toggleTodo = async (req, res, next) => {
   }
 };
 
-// DELETE /api/todos/:id  (also reachable as /api/todo/:id)
 exports.deleteTodo = async (req, res, next) => {
   try {
     const todo = await Todo.findByIdAndDelete(req.params.id);
