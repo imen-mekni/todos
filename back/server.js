@@ -19,7 +19,7 @@ app.get("/", (req, res) => res.json({ status: "ok", message: "Todo API running" 
 // Mounted on both paths because the challenge docs use /api/todo
 // for most routes but /api/todos for DELETE.
 app.use("/api/todo", todoRoutes);
-app.use("/api/todos", todoRoutes);
+
 
 app.use(notFound);
 app.use(errorHandler);
