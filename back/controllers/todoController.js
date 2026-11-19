@@ -48,7 +48,7 @@ exports.toggleTodo = async (req, res, next) => {
   try {
     const todo = await Todo.findById(req.params.id);
     if (!todo) return res.status(404).json({ message: "Todo not found" });
-    todo.completed = !todo.completed;
+    todo.termine = !todo.termine;
     await todo.save();
     res.status(200).json(todo);
   } catch (err) {
