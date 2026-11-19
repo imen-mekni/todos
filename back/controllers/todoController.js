@@ -65,3 +65,13 @@ exports.deleteTodo = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getTodo = async (req, res, next) => {
+  try {
+    const todo = await Todo.findById(req.params.id);
+    if (!todo) return res.status(404).json({ message: "Todo not found" });
+    res.status(200).json(todo);
+  } catch (err) {
+    next(err);
+  }
+};
