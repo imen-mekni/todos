@@ -5,6 +5,7 @@ const {
   updateTodo,
   toggleTodo,
   deleteTodo,
+  getTodo
 } = require("../controllers/todoController");
 const validateObjectId = require("../middleware/validateObjectId");
 
@@ -14,5 +15,5 @@ router.route("/").get(getTodos).post(createTodo);
 router.put("/:id/toggle", validateObjectId, toggleTodo);
 router.put("/:id" , validateObjectId, updateTodo)
 router.delete("/:id" , validateObjectId, deleteTodo);
-
+router.get("/:id", getTodo);
 module.exports = router;
